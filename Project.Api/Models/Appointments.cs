@@ -2,6 +2,7 @@
 
 namespace Project.Api.Models
 {
+    //SpecialtyID
     public class Appointments
     {
         public int AppointmentsId { get; set; }

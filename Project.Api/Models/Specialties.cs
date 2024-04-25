@@ -7,10 +7,7 @@ namespace Project.Api.Models
         [Key]
         public int DoctorId { get; set; }
 
-        public string DoctorName { get; set; }
-
-        public int SpecialtyID { get; set; }
-
+        public string SpecialtyName { get; set; }
 
         public ICollection<Appointments> Appointments { get; set; }
 

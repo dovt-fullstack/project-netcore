@@ -8,6 +8,8 @@ namespace Project.Api.Models
         public int DoctorId { get; set; }
         public string DoctorName { get; set;}
         public int SpecialtyID { get; set; }
+        public string SpecialtyName { get; set; }
+
         public Specialties Specialty { get; set; }
 
         // Navigation property for related entities

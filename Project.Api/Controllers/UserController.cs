@@ -64,32 +64,36 @@ namespace Project.Api.Controllers
             };
             return userDTO;
         }
-
         // POST: api/users
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(CreateUser user)
         {
-            _context.Users.Add(user);
+            var newUser = new User
+            {
+                UserName = user.UserName,
+                Password = user.Password,
+                Email = user.Email,
+                Phone = user.Phone,
+                RoleId = 3
+            };
+            _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
-
         // PUT: api/users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, [FromBody]  UserUpdateDTO user)
         {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
+            var userData = await _context.Users.FindAsync(id);
+            if(user == null) { return NotFound(); }
+            userData.UserName = user.UserName;
+            userData.Email = user.Email;
+            userData.Phone = user.Phone;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("updated success");
         }
-
         // DELETE: api/users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -104,6 +108,52 @@ namespace Project.Api.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpPost("update/role-user/{id}")]
+        public async Task<IActionResult> UpdateRoleUser(int id, [FromBody] UpdateRoleUser model)
+        {
+            try
+            {
+                var role = await _context.Roles.FindAsync(id);
+                var user = await _context.Users.FindAsync(model.UserId);
+                if (role == null)
+                {
+                    return BadRequest("Role not found");
+                }
+                if (user == null)
+                {
+                    return BadRequest("User not found");
+                }
+                user.RoleId = id;
+                await _context.SaveChangesAsync();
+
+                return Ok("Role updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request");
+
+            }
+        }
+        [HttpPost("update/password/{id}")]
+        public async Task<IActionResult> UpdatePasswordUser(int id, [FromBody] UpdatePassWorduserDTO model)
+        {
+            try
+            {
+                var user = await _context.Users.FindAsync(id);
+                if (user == null)
+                {
+                    return BadRequest("User not found");
+                }
+                user.Password = model.PassWord;
+                await _context.SaveChangesAsync();
+                return Ok("Password updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request");
+            }
         }
     }
 }
