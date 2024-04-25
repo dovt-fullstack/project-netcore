@@ -61,5 +61,64 @@ namespace Project.Api.Controllers
             return doctorDTO;
 
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDetailDoctor(int id)
+        {
+            var doctor = await _context.Doctors.FindAsync(id);
+
+            if (doctor == null)
+            {
+                return NotFound("Doctor not found");
+            }
+
+            var specialtyId = doctor.SpecialtyID; 
+
+            var specialty = await _context.Specialties.FindAsync(specialtyId); 
+
+            if (specialty == null)
+            {
+                return BadRequest("Specialty not found for the doctor");
+            }
+            var specialtyName = specialty.SpecialtyName; 
+            var dataNew = new
+            {
+                Doctor = new
+                {
+                    doctor.DoctorId,
+                    doctor.DoctorName,
+                    doctor.SpecialtyID,
+                    SpecialtyNameDoctor = specialtyName
+                }
+            };
+            return Ok(dataNew);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveDoctor(int id)
+        {
+            var doctor = await _context.Doctors.FindAsync(id);
+            if(doctor == null)
+            {
+                return NotFound();
+            }
+            _context.Doctors.Remove(doctor);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDoctor(int id, [FromBody] CreateDoctorDTO model)
+        {
+            var doctor = await _context.Doctors.FindAsync(id);
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+            doctor.DoctorName = model.DoctorName;
+            doctor.SpecialtyID = model.SpecialtyID;
+            await _context.SaveChangesAsync();
+
+            return Ok(doctor);
+        }
     }
 }

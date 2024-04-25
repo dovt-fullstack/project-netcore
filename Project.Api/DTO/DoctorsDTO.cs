@@ -21,4 +21,10 @@ namespace Project.Api.DTO
         public string DoctorName { get; set; }
         public Specialties Specialty { get; set; }
     }
+
+    //public class UpdateDoctor
+    //{
+    //    public string DoctorName { get; set; }
+
+    //}
 }
