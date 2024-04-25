@@ -34,9 +34,7 @@ namespace Project.Api.Controllers
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Avatar = user.Avatar,
                 Email = user.Email,
-                Address = user.Address,
                 Phone = user.Phone.ToString(),
                 RoleName = user.Role?.Name
             }).ToList();
@@ -60,9 +58,7 @@ namespace Project.Api.Controllers
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Avatar = user.Avatar,
                 Email = user.Email,
-                Address = user.Address,
                 Phone = user.Phone.ToString(), 
                 RoleName = user.Role?.Name 
             };
