@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using Project.Api.Models;
 
 namespace Project.Api.Controllers
@@ -10,6 +11,25 @@ namespace Project.Api.Controllers
     public class RoleController : ControllerBase
     {
         private readonly AppDbContext _context;
+
+        private async Task<bool> AuthenticateToken(HttpContext httpContext)
+        {
+            if (httpContext.Request.Headers.TryGetValue("Authorization", out StringValues token))
+            {
+                return true; 
+            }
+            return false;
+        }
+        private async Task<bool> RequireTokenMiddleware(HttpContext httpContext, Func<Task> next)
+        {
+            if (!await AuthenticateToken(httpContext))
+            {
+                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return false;
+            }
+            await next();
+            return true;
+        }
         public RoleController(AppDbContext context)
         {
             _context = context;
@@ -17,6 +37,11 @@ namespace Project.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
+            if (!await RequireTokenMiddleware(HttpContext, () => Task.CompletedTask))
+            {
+                return Unauthorized();
+            }
+             
             return await _context.Roles.ToListAsync();
         }
         [HttpGet("{id}")]
