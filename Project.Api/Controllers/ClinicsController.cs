@@ -15,7 +15,6 @@ namespace Project.Api.Controllers
         {
             _context = context;
         }
-
         [HttpPost]
         public async Task<IActionResult> CreateClinics([FromBody] CreateClinic model)
         {
@@ -85,7 +84,6 @@ namespace Project.Api.Controllers
 
             }
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> EditClinic(int id, [FromBody] CreateClinic model)
         {
@@ -100,7 +98,6 @@ namespace Project.Api.Controllers
                 dataClinic.Phone = model.Phone;
                 dataClinic.ClinicName = model.ClinicName;
                 await _context.SaveChangesAsync();
-
                 return Ok(dataClinic);
             }
             catch (Exception ex)

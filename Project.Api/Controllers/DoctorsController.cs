@@ -74,11 +74,8 @@ namespace Project.Api.Controllers
             {
                 return NotFound("Doctor not found");
             }
-
             var specialtyId = doctor.SpecialtyID; 
-
             var specialty = await _context.Specialties.FindAsync(specialtyId); 
-
             if (specialty == null)
             {
                 return BadRequest("Specialty not found for the doctor");
@@ -121,7 +118,6 @@ namespace Project.Api.Controllers
             doctor.DoctorName = model.DoctorName;
             doctor.SpecialtyID = model.SpecialtyID;
             await _context.SaveChangesAsync();
-
             return Ok(doctor);
         }
     }
