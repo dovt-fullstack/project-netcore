@@ -5,7 +5,7 @@ namespace Project.Api.Models
     public class Specialties
     {
         [Key]
-        public int DoctorId { get; set; }
+        public int SpecialtyID { get; set; }
 
         public string SpecialtyName { get; set; }
 

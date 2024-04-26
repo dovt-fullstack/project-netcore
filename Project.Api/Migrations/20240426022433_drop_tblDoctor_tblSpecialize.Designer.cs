@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240426022433_drop_tblDoctor_tblSpecialize")]
+    partial class drop_tblDoctor_tblSpecialize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,9 +222,6 @@ namespace Project.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"), 1L, 1);
 
-                    b.Property<int?>("ClinicsClinicID")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
@@ -235,8 +234,6 @@ namespace Project.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ServiceId");
-
-                    b.HasIndex("ClinicsClinicID");
 
                     b.ToTable("Services");
                 });
@@ -379,13 +376,6 @@ namespace Project.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Project.Api.Models.Services", b =>
-                {
-                    b.HasOne("Project.Api.Models.Clinics", null)
-                        .WithMany("Services")
-                        .HasForeignKey("ClinicsClinicID");
-                });
-
             modelBuilder.Entity("Project.Api.Models.User", b =>
                 {
                     b.HasOne("Project.Api.Models.Role", "Role")
@@ -405,8 +395,6 @@ namespace Project.Api.Migrations
             modelBuilder.Entity("Project.Api.Models.Clinics", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Doctors", b =>

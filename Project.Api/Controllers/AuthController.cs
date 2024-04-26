@@ -29,11 +29,23 @@ namespace Project.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest model)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-            if (user != null && VerifyPassword(model.Password, user.Password))
+            if(model.IsDoctor == false)
             {
-                var token = GenerateAccessToken(user.Email);
-                return Ok(new { AccessToken = token , User = user });
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (user != null && VerifyPassword(model.Password, user.Password))
+                {
+                    var token = GenerateAccessToken(user.Email);
+                    return Ok(new { AccessToken = token, User = user , IsUser = true});
+                }
+            }
+            else
+            {
+                var doctor = await _context.Doctors.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (doctor != null && VerifyPassword(model.Password, doctor.Password))
+                {
+                    var token = GenerateAccessToken(doctor.Email);
+                    return Ok(new { AccessToken = token, User = doctor, doctor = true });
+                }
             }
 
             return Unauthorized();

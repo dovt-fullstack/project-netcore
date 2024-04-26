@@ -28,15 +28,19 @@ namespace Project.Api.Controllers
             {
                 DoctorName = model.DoctorName,
                 SpecialtyID = model.SpecialtyID,
-                //specialty
+                Email = model.Email,
+                Password = model.Password,
+                SpecialtyName = ""
+
             };
             _context.Doctors.Add(newDoctor);
             await _context.SaveChangesAsync();
-
             var response = new PostDoctorResponse
             {
                 DoctorId = newDoctor.DoctorId,
                 DoctorName = newDoctor.DoctorName,
+                Email = newDoctor.Email,
+
             };
             return Ok(response);
         }

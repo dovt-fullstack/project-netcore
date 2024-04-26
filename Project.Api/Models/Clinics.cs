@@ -10,6 +10,6 @@ namespace Project.Api.Models
         public string Phone {  get; set; }
         public string Address { get; set; }
         public ICollection<Appointments> Appointments { get; set; }
-
+        public ICollection<Services> Services { get; set; }
     }
 }

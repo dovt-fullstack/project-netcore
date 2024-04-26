@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.Api.Models
 {
@@ -7,16 +8,15 @@ namespace Project.Api.Models
         [Key]
         public int DoctorId { get; set; }
         public string DoctorName { get; set;}
+
+        [ForeignKey("Specialties")]
         public int SpecialtyID { get; set; }
         public string SpecialtyName { get; set; }
-
+        public string Email { get; set; }
+        public string Password { get; set; }
         public Specialties Specialty { get; set; }
-
-        // Navigation property for related entities
         public ICollection<Appointments> Appointments { get; set; }
-
         public ICollection<AppointmentHistory> AppointmentHistories { get; set; }
-
     }
 
 }

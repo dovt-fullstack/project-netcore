@@ -77,5 +77,33 @@ namespace Project.Api.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpGet("get-doctor/{id}")]
+        public async Task<IActionResult> getDoctorInSpeci(int id)
+        {
+            try
+            {
+                var speciData = await _context.Specialties.FindAsync(id);
+                if (speciData == null)
+                {
+                    return NotFound();
+                }
+                var doctorsInSpecialty = (from a in _context.Doctors
+                                          from b in _context.Specialties where a.SpecialtyID == b.SpecialtyID select new ResponeDoctorInSpec()
+                                          {
+                                              EmailDoctor = a.Email,
+                                              IdDoctor = a.DoctorId,
+                                              IdSpe = b.SpecialtyID,
+                                              NameDoctor = a.DoctorName,
+                                              NameSpe = a.Specialty.SpecialtyName
+                                          }).ToList();
+
+                return Ok(doctorsInSpecialty);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -111,7 +111,7 @@ namespace Project.Api.Controllers
         }
 
         [HttpPost("update/role-user/{id}")]
-        public async Task<IActionResult> UpdateRoleUser(int id, [FromBody] UpdateRoleUser model)
+        public async Task<IActionResult> UpdateRoleUser(int id, [FromBody] UpdateRoleUserDTO model)
         {
             try
             {

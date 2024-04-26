@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240426011443_init-pass-doctor")]
+    partial class initpassdoctor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Project.Api.Migrations
                     b.Property<int?>("DoctorsDoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SpecialtiesSpecialtyID")
+                    b.Property<int?>("SpecialtiesDoctorId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
@@ -54,7 +56,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("DoctorsDoctorId");
 
-                    b.HasIndex("SpecialtiesSpecialtyID");
+                    b.HasIndex("SpecialtiesDoctorId");
 
                     b.HasIndex("UserId");
 
@@ -81,7 +83,7 @@ namespace Project.Api.Migrations
                     b.Property<int?>("ServicesServiceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SpecialtiesSpecialtyID")
+                    b.Property<int?>("SpecialtiesDoctorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -99,7 +101,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("ServicesServiceId");
 
-                    b.HasIndex("SpecialtiesSpecialtyID");
+                    b.HasIndex("SpecialtiesDoctorId");
 
                     b.HasIndex("UserID");
 
@@ -220,9 +222,6 @@ namespace Project.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"), 1L, 1);
 
-                    b.Property<int?>("ClinicsClinicID")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
@@ -236,24 +235,22 @@ namespace Project.Api.Migrations
 
                     b.HasKey("ServiceId");
 
-                    b.HasIndex("ClinicsClinicID");
-
                     b.ToTable("Services");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Specialties", b =>
                 {
-                    b.Property<int>("SpecialtyID")
+                    b.Property<int>("DoctorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpecialtyID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorId"), 1L, 1);
 
                     b.Property<string>("SpecialtyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SpecialtyID");
+                    b.HasKey("DoctorId");
 
                     b.ToTable("Specialties");
                 });
@@ -305,7 +302,7 @@ namespace Project.Api.Migrations
 
                     b.HasOne("Project.Api.Models.Specialties", null)
                         .WithMany("AppointmentHistories")
-                        .HasForeignKey("SpecialtiesSpecialtyID");
+                        .HasForeignKey("SpecialtiesDoctorId");
 
                     b.HasOne("Project.Api.Models.User", null)
                         .WithMany("AppointmentHistories")
@@ -334,7 +331,7 @@ namespace Project.Api.Migrations
 
                     b.HasOne("Project.Api.Models.Specialties", null)
                         .WithMany("Appointments")
-                        .HasForeignKey("SpecialtiesSpecialtyID");
+                        .HasForeignKey("SpecialtiesDoctorId");
 
                     b.HasOne("Project.Api.Models.User", "User")
                         .WithMany("Appointments")
@@ -379,13 +376,6 @@ namespace Project.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Project.Api.Models.Services", b =>
-                {
-                    b.HasOne("Project.Api.Models.Clinics", null)
-                        .WithMany("Services")
-                        .HasForeignKey("ClinicsClinicID");
-                });
-
             modelBuilder.Entity("Project.Api.Models.User", b =>
                 {
                     b.HasOne("Project.Api.Models.Role", "Role")
@@ -405,8 +395,6 @@ namespace Project.Api.Migrations
             modelBuilder.Entity("Project.Api.Models.Clinics", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Doctors", b =>
