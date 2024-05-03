@@ -96,6 +96,12 @@ namespace Project.Api.Controllers
                 return NotFound();
             }
             var totalCost = appointment.Services.Sum(s => s.Cost);
+            var serviceDTOs = appointment.Services.Select(s => new ServiceDetailsDTO
+            {
+                ServiceId = s.ServiceId,
+                ServiceName = s.ServiceName,
+                Cost = s.Cost
+            }).ToList();
             var appointmentDTO = new AppointmentDTO
             {
                 AppointmentId = appointment.AppointmentsId,
@@ -104,7 +110,7 @@ namespace Project.Api.Controllers
                 ClinicName = appointment.Clinic.ClinicName,
                 AppointmentDate = appointment.AppointmentDate,
                 Status = appointment.Status,
-                ServiceNames = appointment.Services.Select(s => s.ServiceName).ToList(),
+                Service = serviceDTOs,
                 Cost = totalCost,
             };
             var jsonAppointment = JsonSerializer.Serialize(appointment, _jsonOptions);
@@ -128,7 +134,6 @@ namespace Project.Api.Controllers
         [HttpGet("{userId}/bookings")]
         public async Task<ActionResult<IEnumerable<Appointments>>> GetUserBookings(int userId)
         {
-            // Lấy danh sách các cuộc hẹn của người dùng có ID tương ứng
             var userBookings = await _context.Appointments
                 .Where(a => a.UserID == userId)
                 .ToListAsync();

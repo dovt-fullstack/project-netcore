@@ -12,6 +12,13 @@
         public string Status { get; set; }
         public List<string> ServiceIDs { get; set; } 
     }
+    public class ServiceDetailsDTO
+    {
+        public int ServiceId { get; set; }
+        public string ServiceName { get; set; }
+        public decimal Cost { get; set; }
+
+    }
     public class AppointmentDTO
     {
         public int AppointmentId { get; set; }
@@ -21,10 +28,11 @@
         public DateTime AppointmentDate { get; set; }
         public string Status { get; set; }
         public decimal Cost { get; set; }
-        public List<string> ServiceNames { get; set; }
+        public List<ServiceDetailsDTO> Service { get; set; }
     }
     public class UpdateAppointmentDTO
     {
         public string status { get; set; }
     }
+    
 }
