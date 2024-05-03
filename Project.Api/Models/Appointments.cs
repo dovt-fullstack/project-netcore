@@ -20,6 +20,8 @@ namespace Project.Api.Models
         public Doctors Doctor { get; set; }
 
         public Clinics Clinic { get; set; }
+        public ICollection<Services> Services { get; set; }
+
 
         public ICollection<AppointmentHistory> AppointmentHistories { get; set; }
     }

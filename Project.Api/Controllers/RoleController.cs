@@ -37,10 +37,6 @@ namespace Project.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
-            if (!await RequireTokenMiddleware(HttpContext, () => Task.CompletedTask))
-            {
-                return Unauthorized();
-            }
              
             return await _context.Roles.ToListAsync();
         }

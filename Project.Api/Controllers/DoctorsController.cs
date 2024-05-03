@@ -120,5 +120,6 @@ namespace Project.Api.Controllers
             await _context.SaveChangesAsync();
             return Ok(doctor);
         }
+       
     }
 }

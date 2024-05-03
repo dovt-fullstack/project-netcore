@@ -21,6 +21,21 @@ namespace Project.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AppointmentsServices", b =>
+                {
+                    b.Property<int>("AppointmentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicesServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppointmentsId", "ServicesServiceId");
+
+                    b.HasIndex("ServicesServiceId");
+
+                    b.ToTable("AppointmentsServices");
+                });
+
             modelBuilder.Entity("Project.Api.Models.AppointmentHistory", b =>
                 {
                     b.Property<int>("HistoryID")
@@ -78,9 +93,6 @@ namespace Project.Api.Migrations
                     b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ServicesServiceId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SpecialtiesSpecialtyID")
                         .HasColumnType("int");
 
@@ -96,8 +108,6 @@ namespace Project.Api.Migrations
                     b.HasIndex("ClinicID");
 
                     b.HasIndex("DoctorID");
-
-                    b.HasIndex("ServicesServiceId");
 
                     b.HasIndex("SpecialtiesSpecialtyID");
 
@@ -291,6 +301,21 @@ namespace Project.Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AppointmentsServices", b =>
+                {
+                    b.HasOne("Project.Api.Models.Appointments", null)
+                        .WithMany()
+                        .HasForeignKey("AppointmentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project.Api.Models.Services", null)
+                        .WithMany()
+                        .HasForeignKey("ServicesServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Project.Api.Models.AppointmentHistory", b =>
                 {
                     b.HasOne("Project.Api.Models.Appointments", "Appointment")
@@ -327,10 +352,6 @@ namespace Project.Api.Migrations
                         .HasForeignKey("DoctorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Project.Api.Models.Services", null)
-                        .WithMany("Appointments")
-                        .HasForeignKey("ServicesServiceId");
 
                     b.HasOne("Project.Api.Models.Specialties", null)
                         .WithMany("Appointments")
@@ -419,11 +440,6 @@ namespace Project.Api.Migrations
             modelBuilder.Entity("Project.Api.Models.Role", b =>
                 {
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Project.Api.Models.Services", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Specialties", b =>
