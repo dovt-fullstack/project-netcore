@@ -7,10 +7,15 @@ namespace Project.Api.DTO
         public int Id { get; set; }
         public string DoctorName { get; set; }
         public string Specialty { get; set; }
+    public string Email { get; set; }
+    public string Schedule { get; set; }
+
+    
 
 
-    }
-    public class CreateDoctorDTO
+
+  }
+  public class CreateDoctorDTO
     {
         public int SpecialtyID { get; set; }
         public string DoctorName { get; set; }
@@ -26,9 +31,9 @@ namespace Project.Api.DTO
         public Specialties Specialty { get; set; }
     }
 
-    //public class UpdateDoctor
-    //{
-    //    public string DoctorName { get; set; }
+  public class UpdateScheduleDoctor
+  {
+    public string Schedule { get; set; }
 
-    //}
+  }
 }

@@ -155,5 +155,31 @@ namespace Project.Api.Controllers
                 return StatusCode(500, "An error occurred while processing your request");
             }
         }
+
+
+    [HttpPost("checkMail/user")]
+    public async Task<IActionResult> CheckMailExst([FromBody] CheckMailUserDTO model)
+    {
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+
+      if (user != null)
+      {
+        return new JsonResult(true) { StatusCode = 200 };
+      }
+      else
+      {
+        return NotFound("Email không tồn tại trong cơ sở dữ liệu.");
+      }
     }
+
+    [HttpPost("forgot/password")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassWorduserDTO model)
+    {
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+      user.Password = model.PassWord;
+      await _context.SaveChangesAsync();
+
+      return Ok("updated");
+    }
+  }
 }

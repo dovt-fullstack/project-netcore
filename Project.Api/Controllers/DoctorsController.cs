@@ -59,7 +59,9 @@ namespace Project.Api.Controllers
             {
                 Id = doctor.DoctorId,
                 DoctorName = doctor.DoctorName,
-                Specialty = doctor.Specialty.SpecialtyName
+              Schedule = doctor.Schedule,
+                Specialty = doctor.Specialty.SpecialtyName,
+              Email = doctor.Email
 
             }).ToList();
             return doctorDTO;
@@ -88,6 +90,8 @@ namespace Project.Api.Controllers
                     doctor.DoctorId,
                     doctor.DoctorName,
                     doctor.SpecialtyID,
+                    doctor.Email,
+                    doctor.Schedule,
                     SpecialtyNameDoctor = specialtyName
                 }
             };
@@ -120,6 +124,19 @@ namespace Project.Api.Controllers
             await _context.SaveChangesAsync();
             return Ok(doctor);
         }
-       
+    [HttpPut("update/Schedule/{id}")]
+    public async Task<IActionResult> UpdateScheduleDoctor(int id, [FromBody] UpdateScheduleDoctor model)
+    {
+      var doctor = await _context.Doctors.FindAsync(id);
+      if (doctor == null)
+      {
+        return NotFound();
+      }
+      doctor.Schedule = model.Schedule;
+            await _context.SaveChangesAsync();
+
+      return Ok("updated");
+    }
+
     }
 }

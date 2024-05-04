@@ -56,7 +56,7 @@ namespace Project.Api.Controllers
 
             foreach (var serviceId in model.ServiceIDs)
             {
-               
+
                 if (int.TryParse(serviceId, out int id))
                 {
                     var service = await _context.Services.FindAsync(id);
@@ -83,7 +83,7 @@ namespace Project.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> GetAppointment(int id)
         {
-          
+
             var appointment = await _context.Appointments
                 .Include(a => a.User)
                 .Include(a => a.Doctor)

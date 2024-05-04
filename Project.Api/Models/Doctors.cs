@@ -13,6 +13,7 @@ namespace Project.Api.Models
         public int SpecialtyID { get; set; }
         public string SpecialtyName { get; set; }
         public string Email { get; set; }
+        public string Schedule { get; set; }
         public string Password { get; set; }
         public Specialties Specialty { get; set; }
         public ICollection<Appointments> Appointments { get; set; }

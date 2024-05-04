@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{CD48DA55-4FCB-48BF-8153-A94A34C98E97}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Project.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Project.Api/appsettings.json">
+    <Files>
+      <File FileName="Project.Api/appsettings.json" Line="5" Column="40" />
+      <File FileName="Project.Api/Controllers/SpecialtyController.cs" />
+      <File FileName="Project.Api/Controllers/UserController.cs" />
+      <File FileName="Project.Api/Controllers/RoleController.cs" />
+      <File FileName="Project.Api/Models/Role.cs" Line="9" Column="27" />
+      <File FileName="Project.Api/Models/Clinics.cs" Line="1" Column="1" />
+      <File FileName="Project.Api/Models/Doctors.cs" Line="1" Column="1" />
+      <File FileName="Project.Api/Controllers/DoctorsController.cs" Line="63" Column="1" />
+      <File FileName="Project.Api/DTO/DoctorsDTO.cs" Line="10" Column="24" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Project.Api" expanded="True">
+            <Node name="Project.Api">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="appsettings.json" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

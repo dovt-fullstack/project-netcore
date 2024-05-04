@@ -21,7 +21,19 @@
         public string PassWord { get; set; }
     }
 
-    public class CreateUser
+  public class ForgotPassWorduserDTO
+  {
+    public string Email { get; set; }
+    public string PassWord { get; set; }
+
+  }
+  public class CheckMailUserDTO
+  {
+    public string Email { get; set; }
+
+  }
+
+  public class CreateUser
     {
         public int Id { get; set; }
         public string UserName { get; set; }
