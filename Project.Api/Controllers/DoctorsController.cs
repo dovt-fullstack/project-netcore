@@ -30,7 +30,8 @@ namespace Project.Api.Controllers
                 SpecialtyID = model.SpecialtyID,
                 Email = model.Email,
                 Password = model.Password,
-                SpecialtyName = ""
+                SpecialtyName = "",
+              Schedule = model.Schedule
 
             };
             _context.Doctors.Add(newDoctor);

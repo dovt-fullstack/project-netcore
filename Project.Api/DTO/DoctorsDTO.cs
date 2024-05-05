@@ -20,8 +20,8 @@ namespace Project.Api.DTO
         public int SpecialtyID { get; set; }
         public string DoctorName { get; set; }
         public string Password { get; set; }
-
-        public string Email { get; set; }
+    public string Schedule { get; set; }
+    public string Email { get; set; }
     }
     public class PostDoctorResponse
     {
