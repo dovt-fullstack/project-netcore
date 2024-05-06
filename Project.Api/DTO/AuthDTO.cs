@@ -19,4 +19,11 @@
         public string roleName { get; set; }
 
     }
+    public class PaymentDTO
+    {
+        public string UserId { get; set; }
+        public int Total { get; set; }
+        public string AppointmentId { get; set; }
+
+    }
 }
