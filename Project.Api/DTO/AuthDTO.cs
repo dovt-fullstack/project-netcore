@@ -10,4 +10,13 @@
         public string Password { get; set; }
         public bool  IsDoctor { get; set; }
     }
+    public class LoginResponse
+    {
+        public string Email { get; set; }
+        public bool IsDoctor { get; set; }
+        public string userName { get; set; }
+        public int phone { get; set; }
+        public string roleName { get; set; }
+
+    }
 }

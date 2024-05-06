@@ -32,10 +32,20 @@ namespace Project.Api.Controllers
             if(model.IsDoctor == false)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                var roleName = await _context.Roles.FindAsync(user.RoleId);
+                var respone = new LoginResponse
+                {
+                    Email = user.Email,
+                    phone = user.Phone,
+                    roleName = roleName.Name,
+                    userName = user.UserName,
+
+                };
+
                 if (user != null && VerifyPassword(model.Password, user.Password))
                 {
                     var token = GenerateAccessToken(user.Email);
-                    return Ok(new { AccessToken = token, User = user , IsUser = true});
+                    return Ok(new { AccessToken = token, User = respone});
                 }
             }
             else

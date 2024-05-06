@@ -159,5 +159,28 @@ namespace Project.Api.Controllers
 
             return appointmentsCount;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAppointments()
+        {
+            var appointments = await _context.Appointments
+                                            .Include(a => a.User)
+                                            .Include(a => a.Doctor)
+                                            .Include(a => a.Clinic)
+                                            .ToListAsync();
+
+            var appointmentDTOs = appointments.Select(appointment => new AppointmentDTO
+            {
+                AppointmentId = appointment.AppointmentsId,
+                UserName = appointment.User.UserName,
+                DoctorName = appointment.Doctor.DoctorName,
+                ClinicName = appointment.Clinic.ClinicName,
+                AppointmentDate = appointment.AppointmentDate,
+                Status = appointment.Status,
+            }).ToList();
+
+            return Ok(appointmentDTOs);
+        }
+
     }
 }

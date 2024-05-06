@@ -10,7 +10,7 @@
         public int ClinicID { get; set; }
         public DateTime AppointmentDate { get; set; }
         public string Status { get; set; }
-        public List<string> ServiceIDs { get; set; } 
+        public List<string> ServiceIDs { get; set; }
     }
     public class ServiceDetailsDTO
     {
@@ -34,5 +34,12 @@
     {
         public string status { get; set; }
     }
-    
 }
+    //public class ResponeAppointDTO
+    //{
+    //    public string userName { get; set; }
+    //    public string DoctorName { get; set; }
+    //    public string ClinicName { get; set; }
+    //    public DateTime AppointmentDate { get; set; }
+
+    //}
