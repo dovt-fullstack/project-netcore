@@ -30,7 +30,7 @@ namespace Project.Api.Controllers
                     total = model.Total,
                     user = model.UserId
                 };
-                var apiUrl = $"http://localhost:4444/create-checkout-vnpay?user={model.UserId}&total={model.Total}";
+                var apiUrl = $"http://103.166.182.195:4444/create-checkout-vnpay?user={model.UserId}&total={model.Total}";
 
                 var response = await _httpClient.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
