@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240507014544_int-evaluation")]
+    partial class intevaluation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("ServicesServiceId");
 
-                    b.ToTable("AppointmentsServices", (string)null);
+                    b.ToTable("AppointmentsServices");
                 });
 
             modelBuilder.Entity("Project.Api.Models.AppointmentHistory", b =>
@@ -73,7 +75,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AppointmentHistory", (string)null);
+                    b.ToTable("AppointmentHistory");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Appointments", b =>
@@ -113,7 +115,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Appointments", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Clinics", b =>
@@ -138,7 +140,7 @@ namespace Project.Api.Migrations
 
                     b.HasKey("ClinicID");
 
-                    b.ToTable("Clinics", (string)null);
+                    b.ToTable("Clinics");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Doctors", b =>
@@ -176,7 +178,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("SpecialtyID");
 
-                    b.ToTable("Doctors", (string)null);
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Evaluation", b =>
@@ -204,7 +206,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("AppointmentsId");
 
-                    b.ToTable("Evaluation", (string)null);
+                    b.ToTable("Evaluation");
                 });
 
             modelBuilder.Entity("Project.Api.Models.MedicalRecords", b =>
@@ -234,7 +236,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("MedicalRecords", (string)null);
+                    b.ToTable("MedicalRecords");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Role", b =>
@@ -251,7 +253,7 @@ namespace Project.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Services", b =>
@@ -280,7 +282,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("ClinicsClinicID");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("Project.Api.Models.Specialties", b =>
@@ -297,7 +299,7 @@ namespace Project.Api.Migrations
 
                     b.HasKey("SpecialtyID");
 
-                    b.ToTable("Specialties", (string)null);
+                    b.ToTable("Specialties");
                 });
 
             modelBuilder.Entity("Project.Api.Models.User", b =>
@@ -330,7 +332,7 @@ namespace Project.Api.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("AppointmentsServices", b =>

@@ -21,8 +21,7 @@ namespace Project.Api.Models
 
         public Clinics Clinic { get; set; }
         public ICollection<Services> Services { get; set; }
-
-
+        public ICollection<Evaluation> Evaluations { get; set; }
         public ICollection<AppointmentHistory> AppointmentHistories { get; set; }
     }
 }

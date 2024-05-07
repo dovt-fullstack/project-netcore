@@ -10,7 +10,7 @@ public class AppDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+
     }
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
@@ -21,7 +21,7 @@ public class AppDbContext : DbContext
     public DbSet<Services> Services { get; set; }
     public DbSet<Specialties> Specialties { get; set; }
     public DbSet<MedicalRecords> MedicalRecords { get; set; }
-
+    public DbSet<Evaluation> Evaluation { get; set; }
 
 
 
