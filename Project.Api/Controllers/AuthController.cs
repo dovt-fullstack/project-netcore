@@ -25,6 +25,10 @@ namespace Project.Api.Controllers
             _config = config;
             _context = context;
         }
+        private bool VerifyPasswordBcrypt(string enteredPassword, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPassword);
+        }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest model)
@@ -42,8 +46,9 @@ namespace Project.Api.Controllers
 
                 };
 
-                if (user != null && VerifyPassword(model.Password, user.Password))
+                if (user != null && VerifyPasswordBcrypt(model.Password, user.Password))
                 {
+
                     var token = GenerateAccessToken(user.Email);
                     return Ok(new { AccessToken = token, User = respone});
                 }
@@ -51,13 +56,12 @@ namespace Project.Api.Controllers
             else
             {
                 var doctor = await _context.Doctors.FirstOrDefaultAsync(u => u.Email == model.Email);
-                if (doctor != null && VerifyPassword(model.Password, doctor.Password))
+                if (doctor != null && VerifyPasswordBcrypt(model.Password, doctor.Password))
                 {
                     var token = GenerateAccessToken(doctor.Email);
                     return Ok(new { AccessToken = token, User = doctor, doctor = true });
                 }
             }
-
             return Unauthorized();
         }
         private bool VerifyPassword(string password, string hashedPassword)

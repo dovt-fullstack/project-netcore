@@ -15,6 +15,12 @@ namespace Project.Api.Controllers
         {
             _context = context;
         }
+
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateDoctor([FromBody] CreateDoctorDTO model)
         {
@@ -24,12 +30,18 @@ namespace Project.Api.Controllers
             {
                 return NotFound("specialty not found");
             }
+            var existingUser = await _context.Doctors.FirstOrDefaultAsync(u => u.Email == model.Email);
+            if (existingUser != null)
+            {
+                return BadRequest("Email already exists.");
+            }
+            string hashedPassword = HashPassword(model.Password);
             var newDoctor = new Doctors
             {
                 DoctorName = model.DoctorName,
                 SpecialtyID = model.SpecialtyID,
                 Email = model.Email,
-                Password = model.Password,
+                Password = hashedPassword,
                 SpecialtyName = "",
               Schedule = model.Schedule
 

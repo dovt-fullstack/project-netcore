@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Api.DTO;
 using Project.Api.Models;
+using System.Security.Cryptography;
 
 namespace Project.Api.Controllers
 {
@@ -17,6 +18,10 @@ namespace Project.Api.Controllers
             _context = context;
         }
         // GET: api/users
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         {
@@ -68,10 +73,16 @@ namespace Project.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(CreateUser user)
         {
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+            if (existingUser != null)
+            {
+                return BadRequest("Email already exists.");
+            }
+            string hashedPassword = HashPassword(user.Password);
             var newUser = new User
             {
                 UserName = user.UserName,
-                Password = user.Password,
+                Password = hashedPassword,
                 Email = user.Email,
                 Phone = user.Phone,
                 RoleId = 3
