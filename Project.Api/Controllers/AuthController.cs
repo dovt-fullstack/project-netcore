@@ -64,6 +64,9 @@ namespace Project.Api.Controllers
             }
             return Unauthorized();
         }
+
+
+
         private bool VerifyPassword(string password, string hashedPassword)
         {
             return password == hashedPassword;
