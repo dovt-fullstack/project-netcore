@@ -39,6 +39,7 @@ namespace Project.Api.Controllers
                 var roleName = await _context.Roles.FindAsync(user.RoleId);
                 var respone = new LoginResponse
                 {
+                    IdUser = user.Id,
                     Email = user.Email,
                     phone = user.Phone,
                     roleName = roleName.Name,
@@ -48,7 +49,6 @@ namespace Project.Api.Controllers
 
                 if (user != null && VerifyPasswordBcrypt(model.Password, user.Password))
                 {
-
                     var token = GenerateAccessToken(user.Email);
                     return Ok(new { AccessToken = token, User = respone});
                 }
