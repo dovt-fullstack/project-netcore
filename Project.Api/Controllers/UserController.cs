@@ -157,7 +157,9 @@ namespace Project.Api.Controllers
                 {
                     return BadRequest("User not found");
                 }
-                user.Password = model.PassWord;
+                string hashedPassword = HashPassword(model.PassWord);
+
+                user.Password = hashedPassword;
                 await _context.SaveChangesAsync();
                 return Ok("Password updated successfully");
             }
@@ -187,7 +189,9 @@ namespace Project.Api.Controllers
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassWorduserDTO model)
     {
       var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-      user.Password = model.PassWord;
+            string hashedPassword = HashPassword(model.PassWord);
+
+            user.Password = hashedPassword;
       await _context.SaveChangesAsync();
 
       return Ok("updated");
